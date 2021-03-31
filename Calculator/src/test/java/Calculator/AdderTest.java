@@ -2,8 +2,12 @@ package Calculator;
 
 import static org.junit.Assert.assertEquals;
 
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+
+
 
 public class AdderTest {
 	private Addable adder;
@@ -68,5 +72,29 @@ public class AdderTest {
 		assertEquals(expectedSumOfNumbers, sumOfNumbers);
 	}
 	
+	@Test
+	public void testForMultipleDelimeterCorrectInput() {
+		//given
+		String input = "1\n2,3";
+		long expectedSumOfNumbers = 6;
+		//when
+		long sumOfNumbers = adder.addNumbers(input);
+		//then
+		assertEquals(expectedSumOfNumbers, sumOfNumbers);
+	}
+	
+	@Test 
+	public void testForMultipleDelimeterInCorrectInput() {
+		//given
+		String input = "1,\n7";
+		//when
+		Exception exception = Assertions.assertThrows(NumberFormatException.class, () -> 
+				adder.addNumbers(input));
+		//then
+		assertEquals("java.lang.NumberFormatException", 
+				exception.getClass().toString().split(" ")[1]);
+	}
+	
 
 }
+

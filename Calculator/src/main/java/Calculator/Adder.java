@@ -1,21 +1,20 @@
 package Calculator;
 
+import java.util.Arrays;
+import java.util.InputMismatchException;
+
 public class Adder implements Addable {
 
 	@Override
-	public long addNumbers(String input) {
+	public long addNumbers(String input) throws NumberFormatException,InputMismatchException{
 		//if empty
 		if(input.length() == 0) {
 			return 0;
 		}
 		
-		String digits[] = input.split(",");
-		long sumOfNumbers = 0;
-		for(int i = 0;i < digits.length;i++) {
-			long number = Long.valueOf(digits[i]);
-			sumOfNumbers += number;
-		}
-		return sumOfNumbers;
+		return Arrays.stream(input.split("[,\n]")).
+			mapToLong(Long :: parseLong).sum();
+		
 	}
 
 }
