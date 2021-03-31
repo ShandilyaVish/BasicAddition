@@ -46,6 +46,27 @@ public class AdderTest {
 		assertEquals(expectedValue, sumOfNumber);
 	}
 	
+	@Test
+	public void testForMultipleDigitNumbers() {
+		//given
+		String input = "5,1000,1000,1000,500,500";
+		long expectedSumOfNumbers  = 4005;
+		//when
+		long sumOfNumbers = adder.addNumbers(input);
+		//then
+		assertEquals(expectedSumOfNumbers, sumOfNumbers);
+	}
+	
+	@Test
+	public void testForNegativeMultipleDigitNumbers() {
+		//given
+		String input = "-9,-1,10";
+		long expectedSumOfNumbers = 0;
+		//when
+		long sumOfNumbers = adder.addNumbers(input);
+		//then
+		assertEquals(expectedSumOfNumbers, sumOfNumbers);
+	}
 	
 
 }
