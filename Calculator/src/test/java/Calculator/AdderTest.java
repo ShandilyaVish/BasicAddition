@@ -95,6 +95,18 @@ public class AdderTest {
 				exception.getClass().toString().split(" ")[1]);
 	}
 	
+	@Test
+	public void testForDifferentDelimeterByUser() {
+		//given
+		String input = "//;\n1;2";
+		long expectedSumOfNumbers = 3;
+		//when
+		long sumOfNumbers = adder.addNumbers(input);
+		//then
+		assertEquals(expectedSumOfNumbers, sumOfNumbers);
+		
+	}
+	
 
 }
 
