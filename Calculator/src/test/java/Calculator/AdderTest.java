@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 
 
 
+
 public class AdderTest {
 	private Addable adder;
 	
@@ -61,16 +62,6 @@ public class AdderTest {
 		assertEquals(expectedSumOfNumbers, sumOfNumbers);
 	}
 	
-	@Test
-	public void testForNegativeMultipleDigitNumbers() {
-		//given
-		String input = "-9,-1,10";
-		long expectedSumOfNumbers = 0;
-		//when
-		long sumOfNumbers = adder.addNumbers(input);
-		//then
-		assertEquals(expectedSumOfNumbers, sumOfNumbers);
-	}
 	
 	@Test
 	public void testForMultipleDelimeterCorrectInput() {
@@ -105,6 +96,18 @@ public class AdderTest {
 		//then
 		assertEquals(expectedSumOfNumbers, sumOfNumbers);
 		
+	}
+	
+	@Test
+	public void testForNegativeNumbers() {
+		//given
+		String input = "-1,7,-6";
+		//when
+		Exception exception = Assertions.assertThrows(IllegalArgumentException.class,
+				() -> adder.addNumbers(input));
+		System.out.println(exception);
+		//then
+		assertEquals(new IllegalArgumentException("-1,-6").getMessage(), exception.getMessage());
 	}
 	
 

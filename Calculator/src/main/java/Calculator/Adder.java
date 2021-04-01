@@ -1,14 +1,50 @@
 package Calculator;
 
-import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 public class Adder implements Addable {
+	
+	private String delimeters;
+	private String inputNumber;
+	
+	private Adder(String delimeters,String inputNumber) {
+		this.delimeters = delimeters;
+		this.inputNumber = inputNumber;
+	}
+	
+	public Adder() {
+		
+	}
+	
+	private IntStream getNumberStream() {
+		return Stream.of(inputNumber.split(delimeters))
+				.mapToInt(Integer :: parseInt);
+	}
+	
+	private long sumOfNumbers() {
+		negativeNumbers();
+		return getNumberStream().sum();
+	}
+	
+	private void negativeNumbers() {
+		String negativeNumbers = getNumberStream().filter(n -> n < 0)
+				.mapToObj(Integer::toString)
+				.collect(Collectors.joining(","));
+		if(!negativeNumbers.isEmpty()) {
+			//System.out.println(negativeNumbers);
+			throw new IllegalArgumentException(negativeNumbers);
+		}
+	}
+	
 
 	@Override
 	public long addNumbers(String input) throws NumberFormatException,InputMismatchException{
 		//if empty
-		if(input.length() == 0) {
+		if(input.isEmpty()) {
 			return 0;
 		}
 		
@@ -20,9 +56,10 @@ public class Adder implements Addable {
 			modifiedInput = new StringBuilder(stripNewLine[1]);
 		}
 		
-		return Arrays.stream(modifiedInput.toString().split(del.toString())).
-			mapToLong(Long :: parseLong).sum();
+		
+		return new Adder(del.toString(),modifiedInput.toString()).sumOfNumbers();
 		
 	}
+	
 
 }
