@@ -110,6 +110,17 @@ public class AdderTest {
 		assertEquals(new IllegalArgumentException("-1,-6").getMessage(), exception.getMessage());
 	}
 	
+	@Test
+	public void testForNumbersBiggerThan1000() {
+		//given
+		String input = "2,1001,1005";
+		long expectedSumOfNumbers = 2;
+		//when
+		long sumOfNumbers = adder.addNumbers(input);
+		//then
+		assertEquals(expectedSumOfNumbers, sumOfNumbers);
+	}
+	
 
 }
 

@@ -27,7 +27,9 @@ public class Adder implements Addable {
 	
 	private long sumOfNumbers() {
 		negativeNumbers();
-		return getNumberStream().sum();
+		return getNumberStream()
+				.filter(n -> n <= 1000)
+				.sum();
 	}
 	
 	private void negativeNumbers() {
